@@ -1,0 +1,22 @@
+@import "tailwindcss";
+/* Add this CSS to your project (typically in the global styles or in the component's style file) */
+
+@keyframes scroll {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(100px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-scroll {
+    animation: scroll 10s infinite ease-in-out;
+  }
+  
+  :root{
+    color-scheme:
+  }
