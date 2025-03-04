@@ -1,9 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+
 function HeroTest() {
   return (
-    <div className="h-80 mt-5 bg-[#0d1721] text-white flex flex-col items-center justify-center space-y-6 text-center">
+    <div className="h-80  bg-[#0d1721] text-white flex flex-col items-center justify-center space-y-6 text-center">
       <div>
         <p className="text-4xl font-semibold text-white">Exercises and Quizzes</p>
         <p className="text-lg">Test your skills!</p>
@@ -24,7 +25,9 @@ function HeroTest() {
           let's Solve Some Task
         </NavLink>
       </div>
+    
     </div>
+  
   );
 }
 

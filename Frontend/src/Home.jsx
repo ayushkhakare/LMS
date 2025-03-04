@@ -14,29 +14,32 @@ import InstructorsPage from "./Component/InstructorsPage"
 import Offer from "./Component/Offer"
 import Applycertification from "./Component/Applycertificate"
 import CreateNotification from "./Component/CreateNotification "
-
-
+import Freedemolecture from "./Component/Freedemolecture"
+import Herolinks from "./Component/Herolinks"
 
 
 
 function Home(){
     return<>
      <Hero></Hero>
+     <Herolinks></Herolinks>
      <Course limit={4}></Course>
      <Testimonial></Testimonial>
      <HeroTest></HeroTest>
      <Heroregister></Heroregister>
      <Offer></Offer>
+     <Freedemolecture></Freedemolecture>
+     <Placemetpattner></Placemetpattner>
      <Applycertification></Applycertification>
      <Popular></Popular>
      <InstructorsPage></InstructorsPage>
      <Herochooseus></Herochooseus>
-     <Placemetpattner></Placemetpattner>
      <Herologin></Herologin>
      <CodingFamily></CodingFamily>
      <FaqPage></FaqPage>
-     <Technology></Technology>
      <CreateNotification></CreateNotification>
+     <Technology></Technology>
+    
     
 
 

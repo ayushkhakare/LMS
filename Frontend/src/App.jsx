@@ -13,6 +13,9 @@ import Payment from "./Page/Payment";
 // import Contact from "./Page/Contact";
 import Demolecture from "./Page/Demolecture";
 import AdminRoutes from "./Admin/AdminRoutes";
+import Privacypolicy from "./Component/PrivacyPolicy";
+import Termservice from "./Component/Teamservice";
+import Contact from "./Page/Contact";
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
         <Route path="/freetest" element={<Freetest/>}/>
         <Route path="/taskpage" element={<Taskpage/>}/>
         <Route path="/payment" element={<Payment/>}/>
+        <Route path="/PrivacyPolicy" element={<Privacypolicy></Privacypolicy>}/>
+        <Route path ="/teamservice" element={<Termservice></Termservice>}/>
+        <Route path="/contact" element={<Contact></Contact>}/>
         {/* <Route path="/contact" element={<Contact/>}/> */}
         <Route path="/demolecture" element={<Demolecture/>}/>
 
