@@ -1,165 +1,204 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import QRCode from "react-qr-code";
 
 function Payment() {
   const location = useLocation();
   const course = location.state?.course;
 
-  const [name, setName] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
-  const [cardType, setCardType] = useState('');
+  const [name, setName] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  // Get user ID from localStorage
+  const userData = JSON.parse(localStorage.getItem("user")); 
+  const userId = userData?._id;
+
+  // Calculate total price with ₹5 GST
+  const totalPrice = course ? parseFloat(course.price) + 5 : 0;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
-    if (!name || !cardNumber || !expiryDate || !cvv || !cardType) {
-      setError('All fields are required');
+    if (!userId) {
+      setError("User not found. Please log in again.");
       return;
     }
 
-    // Logic to process the payment (e.g., API call to payment gateway)
-    console.log('Payment processed', { name, cardNumber, expiryDate, cvv, cardType });
-    setIsSuccess(true); // Simulate a successful payment
-    setError('');
-  };
+    if (!name) {
+      setError("Name is required");
+      return;
+    }
 
-  const formatCardNumber = (number) => {
-    // Remove non-digit characters and limit to 16 digits
-    const cleaned = number.replace(/\D/g, '').slice(0, 16);
-    // Format it into groups of 4 digits
-    return cleaned.replace(/(\d{4})(?=\d)/g, '$1-');
-  };
+    if (paymentMethod === "card") {
+      if (!cardNumber || !expiryDate || !cvv) {
+        setError("All card details are required");
+        return;
+      }
+    }
+
+    // Prepare purchase data
+    const purchaseData = {
+      userId: userId,
+      userName: name,  // ✅ Ensure it's coming from input
+      courseId: course?._id,
+      courseName: course?.title,  // ✅ Ensure it's from state
+      price: totalPrice,
+      purchaseDate: new Date(),
+      status: "completed",
+    };
+
+    console.log("Sending purchase data:", purchaseData); // ✅ Debugging step
+
+    try {
+      const response = await fetch("http://localhost:3500/purchases", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(purchaseData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save purchase data");
+      }
+
+      const data = await response.json();
+      console.log("Purchase Successful:", data);
+      setIsSuccess(true);
+      setError("");
+    } catch (error) {
+      console.error("Error saving purchase:", error);
+      setError("Error occurred while saving purchase");
+    }
+};
+
 
   return (
-    <div className="max-w-4xl mx-auto mt-12 p-8 shadow-lg rounded-lg">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Left side (Image) */}
-        <div className="flex justify-center items-center mt-50 h-50 w-110">
-          <img
-            src="/payment.png"
-            alt="Course"
-            className="rounded-lg"
-          />
-        </div>
-
-        {/* Right side (Payment Form) */}
-        <div className="flex flex-col justify-center space-y-6">
-          <h1 className="text-3xl font-semibold text-gray-800">Buy Your Course</h1>
-
-          <div>
-            <h2 className="text-xl text-gray-700 font-medium">Course: {course.title}</h2>
-            <p className="text-xl">Instructor: {course.teacher}</p>
-            <br />
-            <p className="text-xl">Price: {course.price}</p>
+    <section className="bg-gray-900">
+      <div className="max-w-4xl mx-auto p-8 shadow-lg rounded-lg bg-gray-900 text-white h-screen">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex justify-center items-center">
+            <img src="/payment.png" alt="Course" className="rounded-lg" />
           </div>
 
-          {error && <div className="text-red-600">{error}</div>}
+          <div className="flex flex-col justify-center space-y-6">
+            <h1 className="text-3xl font-semibold">Buy Your Course</h1>
+            <h2 className="text-xl font-medium">Course: {course?.title}</h2>
+            <p className="text-xl">Instructor: {course?.teacher}</p>
+            <p className="text-xl">Total Price: ₹{totalPrice} (incl. ₹5 GST)</p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label htmlFor="name" className="text-sm text-gray-700">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                className="w-full p-3 mt-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Enter your full name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
+            {error && <div className="text-red-400">{error}</div>}
 
-            <div>
-              <label htmlFor="cardNumber" className="text-sm text-gray-700">Card Number</label>
-              <input
-                type="text"
-                id="cardNumber"
-                className="w-full p-3 mt-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Enter your card number"
-                value={cardNumber}
-                onChange={(e) => {
-                  // Format the card number and set it
-                  const formattedCardNumber = formatCardNumber(e.target.value);
-                  setCardNumber(formattedCardNumber);
-                }}
-                required
-                maxLength={19} // Max length considering the hyphens
-              />
-            </div>
-
-            <div>
-              <label htmlFor="cardType" className="text-sm text-gray-700">Card Type</label>
-              <select
-                id="cardType"
-                className="w-full p-3 mt-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                value={cardType}
-                onChange={(e) => setCardType(e.target.value)}
-                required
-              >
-                <option value="">Select Card Type</option>
-                <option value="visa">Visa</option>
-                <option value="mastercard">MasterCard</option>
-                <option value="amex">American Express</option>
-              </select>
-            </div>
-
-            <div className="flex justify-between space-x-4">
-              <div className="w-1/2">
-                <label htmlFor="expiryDate" className="text-sm text-gray-700">Expiry Date</label>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Full Name Input */}
+              <div>
+                <label className="text-sm">Full Name</label>
                 <input
                   type="text"
-                  id="expiryDate"
-                  className="w-full p-3 mt-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="MM/YY"
-                  value={expiryDate}
-                  onChange={(e) => setExpiryDate(e.target.value.replace(/[^0-9]/g, ''))}
-                  maxLength={4}
+                  className="w-full p-3 mt-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
 
-              <div className="w-1/2">
-                <label htmlFor="cvv" className="text-sm text-gray-700">CVV</label>
-                <input
-                  type="number"
-                  id="cvv"
-                  className="w-full p-3 mt-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Enter CVV"
-                  value={cvv}
-                  onChange={(e) => {
-                    // Allow only numbers and ensure the length doesn't exceed 3 digits
-                    const value = e.target.value;
-                    if (/^\d{0,3}$/.test(value)) {
-                      setCvv(value);
-                    }
-                  }}
-                  required
-                  maxLength={3}
-                />
+              {/* Payment Method Dropdown */}
+              <div>
+                <label className="text-sm">Payment Method</label>
+                <select
+                  className="w-full p-3 mt-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500"
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                >
+                  <option value="card">Card Payment</option>
+                  <option value="qr">QR Code Payment</option>
+                </select>
               </div>
-            </div>
 
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition"
-            >
-              Complete Payment
-            </button>
-          </form>
+              {/* QR Code Payment Section */}
+              {paymentMethod === "qr" && (
+                <div className="flex flex-col items-center border-2 pb-5 pt-3 bg-gray-700">
+                  <p className="text-white">Scan to Pay ₹{totalPrice}</p>
+                  <QRCode 
+                    value={`upi://pay?pa=ayushkhakare2018@oksbi&pn=Ayush%20Khakare&tn=Course%20Payment&am=${totalPrice}&cu=INR`} 
+                    size={200} 
+                  />
+                </div>
+              )}
 
-          {isSuccess && (
-            <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-md">
-              Payment Successful! Your course is now available.
-            </div>
-          )}
+              {/* Card Payment Section */}
+              {paymentMethod === "card" && (
+                <div className="space-y-4">
+                  {/* Card Number */}
+                  <div>
+                    <label className="text-sm">Card Number</label>
+                    <input
+                      type="text"
+                      className="w-full p-3 mt-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500"
+                      placeholder="1234 5678 9012 3456"
+                      maxLength="16"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(e.target.value)}
+                      required
+                      autoComplete="cc-number"
+                    />
+                  </div>
+
+                  {/* Expiry Date & CVV */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm">Expiry Date</label>
+                      <input
+                        type="text"
+                        className="w-full p-3 mt-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500"
+                        placeholder="MM/YY"
+                        maxLength="5"
+                        value={expiryDate}
+                        onChange={(e) => setExpiryDate(e.target.value)}
+                        required
+                        autoComplete="cc-exp"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm">CVV</label>
+                      <input
+                        type="password"
+                        className="w-full p-3 mt-2 rounded-md border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-indigo-500"
+                        placeholder="123"
+                        maxLength="3"
+                        value={cvv}
+                        onChange={(e) => setCvv(e.target.value)}
+                        required
+                        autoComplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition"
+                  >
+                    Complete Payment
+                  </button>
+                </div>
+              )}
+            </form>
+
+            {/* Success Message */}
+            {isSuccess && (
+              <div className="mt-6 p-4 bg-green-700 text-white rounded-md">
+                Payment Successful! Your course is now available.
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

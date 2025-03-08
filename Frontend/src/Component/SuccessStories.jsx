@@ -47,15 +47,15 @@ const reviews = [
 
 function SuccessStories() {
   return (
-    <div className="bg-gray-50 py-10 px-4 min-h-screen">
+    <div className="bg-gradient-to-br from-gray-900 to-black py-10 px-4 min-h-screen">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-gray-800 mb-4">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-center text-white mb-6">
           Our Success Stories
         </h1>
-        <p className="text-center text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-10">
+        <p className="text-center text-base sm:text-lg text-white max-w-2xl mx-auto mb-10">
           Discover inspiration and insights through recent reviews from our students. Their success stories reflect the transformative journey of learning and growth with{" "}
-          <span className="text-blue-600 font-semibold">CodeHelp</span>.
+          <span className="text-blue-600 font-semibold">ArrayLogic</span>.
         </p>
 
         {/* Reviews Container */}
@@ -63,7 +63,7 @@ function SuccessStories() {
   {reviews.map((review, index) => (
     <div
       key={index}
-      className="bg-white rounded-lg shadow-md p-4 flex flex-col sm:flex-row gap-3 w-full transform transition duration-300 hover:scale-105 hover:shadow-lg overflow-hidden"
+      className="bg-gray-800  rounded-lg shadow-md p-4 flex flex-col sm:flex-row gap-3 w-full transform transition duration-300 hover:scale-105 hover:shadow-lg overflow-hidden"
     >
       {/* Profile Avatar or Image */}
       <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-md overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600 text-white font-bold text-xl">
@@ -80,11 +80,11 @@ function SuccessStories() {
 
       {/* Review Content */}
       <div className="flex-1 text-left">
-        <h2 className="text-base sm:text-lg font-semibold text-gray-800">
+        <h2 className="text-base sm:text-lg font-semibold text-white">
           {review.name}
         </h2>
-        <p className="text-gray-500 text-xs sm:text-sm">{review.designation}</p>
-        <p className="text-gray-700 text-sm sm:text-base mt-1">
+        <p className="text-white text-xs sm:text-sm">{review.designation}</p>
+        <p className="text-white text-sm sm:text-base mt-1">
           {review.review}
         </p>
       </div>

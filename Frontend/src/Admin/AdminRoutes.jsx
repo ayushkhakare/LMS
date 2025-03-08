@@ -10,6 +10,7 @@ import Coursemanage from "./Coursemanage";
 import Enrollmentmanage from "./Enrollmentmanage"
 import Notification from "./Notification"
 import Examassesment from "./Examassesment"
+import Report from "./Report";
 
 const AdminRoutes = () => {
     return (
@@ -22,7 +23,7 @@ const AdminRoutes = () => {
                 <Route path="/enrollmentmanage" element={<Enrollmentmanage></Enrollmentmanage>}/>
                 <Route path="/notification" element={<Notification></Notification>}/>
                 <Route path="/examassesment" element={<Examassesment></Examassesment>}/>
-        
+                <Route path="/report" element={<Report/>}></Route>
                 <Route path="/setting" element={<Setting/>}></Route>
                 <Route path="/users" element={<Users/>}></Route>
             </Route>

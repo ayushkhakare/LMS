@@ -16,6 +16,8 @@ import AdminRoutes from "./Admin/AdminRoutes";
 import Privacypolicy from "./Component/PrivacyPolicy";
 import Termservice from "./Component/Teamservice";
 import Contact from "./Page/Contact";
+import BlogPage from "./Component/BlogPage";
+import BlogDetails from "./Component/BlogDetails";
 
 function App() {
   return (
@@ -36,7 +38,8 @@ function App() {
         <Route path="/contact" element={<Contact></Contact>}/>
         {/* <Route path="/contact" element={<Contact/>}/> */}
         <Route path="/demolecture" element={<Demolecture/>}/>
-
+        <Route path="/blogpage" element={<BlogPage/>}/>
+        <Route path="/blogpage/:id" element={<BlogDetails />} />
         {/* add a private componet in this */}
         {/* <Route element={<PrivateComponent></PrivateComponent>}>
         

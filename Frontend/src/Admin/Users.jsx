@@ -86,13 +86,13 @@ function Users() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 bg-gray-800 min-h-screen">
       {message && (
         <div className={`fixed top-10 left-1/2 transform -translate-x-1/2 bg-${message.type === "success" ? "green" : "red"}-500 text-white px-4 py-2 rounded-md`}>{message.text}</div>
       )}
-      <h1 className="text-3xl font-bold mb-4 text-center text-gray-700">User Management</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center text-white">User Management</h1>
 
-      <div className="max-w-4xl mx-auto mb-4">
+      <div className="max-w-4xl mx-auto mb-4 text-white">
         <input
           type="text"
           placeholder="Search by name or email..."
@@ -102,7 +102,7 @@ function Users() {
         />
       </div>
 
-      <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+      <div className="max-w-6xl mx-auto bg-gray-300 p-6 rounded-lg shadow-lg">
         <table className="w-full border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-200 text-gray-700">

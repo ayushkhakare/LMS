@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section className=" h-170 py-16 relative bg-cover bg-center">
+    <section className=" h-190 py-16 relative bg-cover bg-center">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{

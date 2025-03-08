@@ -7,7 +7,7 @@ import {
     GraduationCap, 
     ClipboardCheck, 
     BarChart2, 
-    Bell 
+    Bell
 } from "lucide-react";
 
 function Adminnavbar() {
@@ -47,7 +47,7 @@ function Adminnavbar() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/reportnaalytic" className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 rounded">
+                        <NavLink to="/report" className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 rounded">
                             <BarChart2 size={20} />
                             <span> Reports & Analytics</span>
                         </NavLink>
@@ -56,6 +56,12 @@ function Adminnavbar() {
                         <NavLink to="/notification" className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 rounded">
                             <Bell size={20} />
                             <span>Notifications & Announcements</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/setting" className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-700 rounded">
+                            <Bell size={20} />
+                            <span>Setting</span>
                         </NavLink>
                     </li>
                 </ul>

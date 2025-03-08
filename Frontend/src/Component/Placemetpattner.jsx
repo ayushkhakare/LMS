@@ -19,23 +19,6 @@ function Placementpartners() {
 
   return (
     <div className="relative bg-gradient-to-r from-[#0d1721] to-[#1a2940] h-auto py-20 px-6 flex flex-col items-center overflow-hidden">
-      {/* Animated Background */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        animate={{
-          background: [
-            "linear-gradient(45deg, #0d1721, #1a2940)",
-            "linear-gradient(45deg, #1a2940, #0d1721)",
-          ],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "mirror",
-          ease: "linear",
-        }}
-      />
-
       <h1 className="text-5xl font-extrabold text-[#ffc0c7] mb-6 text-center drop-shadow-lg z-10">
         🚀 Our Placement Partners 🚀
       </h1>
@@ -54,28 +37,18 @@ function Placementpartners() {
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 15, // Increased speed for a more dynamic effect
+              duration: 15,
               ease: "linear",
             },
           }}
         >
           {partners.map((partner) => (
-            <motion.div
+            <img
               key={partner.id}
-              className="flex flex-col items-center mx-4 w-48 h-60 p-6 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-lg transition-all hover:border-[#ffc0c7] hover:shadow-[0_0_20px_#ffc0c7] cursor-pointer"
-              whileHover={{ scale: 1.05, y: -10 }} // Enhanced hover effect
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <img
-                src={partner.logo}
-                alt={`Logo of ${partner.name}`}
-                className="w-32 h-32 object-contain transition-transform duration-300 transform hover:scale-110"
-              />
-              <h2 className="text-xl font-bold text-white mt-4">{partner.name}</h2>
-            </motion.div>
+              src={partner.logo}
+              alt={partner.name}
+              className="w-40 h-40 object-contain mx-4 transition-transform duration-300 transform hover:scale-110"
+            />
           ))}
         </motion.div>
       </div>

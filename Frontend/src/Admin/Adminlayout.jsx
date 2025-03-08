@@ -6,10 +6,12 @@ function Adminlayout() {
     return (
         <div className="flex h-screen">
             <Adminnavbar /> {/* Sidebar stays on all pages */}
-            <main className="flex-1 p-6 bg-gray-100">
-                <div className="bg-white shadow-md p-6 rounded-lg">
-                    <Outlet /> {/* This will render the child components */}
-                </div>
+            <main className="flex-1 p-6 bg-gray-700">
+                {/* <div className="bg-white shadow-md p-6 rounded-lg">
+                  
+                    <h1></h1>
+                </div> */}
+                <Outlet /> 
 
                 {/* Navigation Boxes */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
@@ -48,7 +50,7 @@ function Adminlayout() {
                     </NavLink>
 
                     <NavLink 
-                        to="/reportnaalytic"
+                        to="/report"
                         className="block p-24 sm:p-12 text-white text-lg font-semibold text-center bg-purple-500 hover:bg-purple-600 rounded-lg shadow-lg transition-all"
                     >
                        Reports & Analytics
@@ -58,15 +60,15 @@ function Adminlayout() {
                         to="/notification"
                         className="block p-24 sm:p-12 text-white text-lg font-semibold text-center bg-teal-500 hover:bg-teal-600 rounded-lg shadow-lg transition-all"
                     >
-                       Notifications & Announcements
+                       Notifications & Announceme..
                     </NavLink>
 
-                    {/* <NavLink 
-                        to="/profile"
+                    <NavLink 
+                        to="/setting"
                         className="block p-24 sm:p-12 text-white text-lg font-semibold text-center bg-pink-500 hover:bg-pink-600 rounded-lg shadow-lg transition-all"
                     >
-                        Profile
-                    </NavLink> */}
+                        Setting
+                    </NavLink>
                 </div>
             </main>
         </div>

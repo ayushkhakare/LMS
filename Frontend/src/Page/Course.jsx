@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { FaRupeeSign } from "react-icons/fa";
 
 function Course({ limit }) {
   const navigate = useNavigate();
@@ -79,10 +80,15 @@ function Course({ limit }) {
 
                 {/* Price and Discount Section */}
                 <div className="mt-4 flex gap-3 font-bold">
-                  <p className="text-base text-[#6e96cf]">{course.price}</p>
+                <p className="text-base text-[#6e96cf] flex items-center">
+    <span className="text-green-600 flex items-center">
+        Price: <FaRupeeSign className="ml-1" />
+    </span>
+    <span className="ml-1">{course.price}</span>
+</p>
                   {course.discount && (
                     <>
-                      <p className="text-base text-white line-through">{course.price}</p>
+                      <p className="text-base text-white line-through">Price {course.price}</p>
                       <p className="rounded-md bg-green-500 px-2 py-1 text-sm text-white">
                         57% off
                       </p>

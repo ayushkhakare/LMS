@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Edit, Trash2, PlusCircle, Search } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const API_URL = "http://localhost:3500/addcourse";
 
@@ -86,12 +87,13 @@ function CourseManage() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-4 text-center text-gray-700">Course Management</h1>
+    <div className="p-6 bg-gray-900 min-h-screen">
+         <NavLink to='/adminlayout' className="text-white text-2xl ml-3 mt-8">Home</NavLink>
+      <h1 className="text-3xl font-bold mb-4 text-center text-white">Course Management</h1>
 
       <div className="flex justify-between mb-4">
         {/* Search Bar */}
-        <div className="relative w-full md:w-1/3">
+        <div className="relative w-full md:w-1/3 text-white">
           <input
             type="text"
             placeholder="Search courses..."
@@ -115,13 +117,13 @@ function CourseManage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCourses.length > 0 ? (
           filteredCourses.map((course) => (
-            <div key={course._id} className="bg-white p-4 shadow-md rounded-lg">
+            <div key={course._id} className="bg-gray-600 p-4 shadow-md rounded-lg">
               <img src={course.img} alt={course.title} className="w-full h-40 object-cover rounded-md mb-2" />
-              <h2 className="text-xl font-bold">{course.title}</h2>
-              <p className="text-gray-600">By {course.teacher}</p>
-              <p className="text-gray-700">Rating: {course.rating}</p>
+              <h2 className="text-xl font-bold text-blue-300 text-center">{course.title}</h2>
+              <p className="text-white">By {course.teacher}</p>
+              <p className="text-white">Rating: {course.rating}</p>
               <p className="text-green-600 font-bold">Price: ${course.price}</p>
-              <p className="text-sm text-gray-500">{course.description}</p>
+              <p className="text-sm text-white">{course.description}</p>
 
               <div className="flex gap-2 mt-3">
                 <button onClick={() => handleEdit(course)} className="text-blue-500">

@@ -16,6 +16,9 @@ import Applycertification from "./Component/Applycertificate"
 import CreateNotification from "./Component/CreateNotification "
 import Freedemolecture from "./Component/Freedemolecture"
 import Herolinks from "./Component/Herolinks"
+import Gamification from "./Component/Gamification"
+import BlogPage from "./Component/BlogPage"
+// import DiscussionForum from "./Component/DiscussionForum"
 
 
 
@@ -35,10 +38,14 @@ function Home(){
      <InstructorsPage></InstructorsPage>
      <Herochooseus></Herochooseus>
      <Herologin></Herologin>
+     {/* <DiscussionForum></DiscussionForum> */}
      <CodingFamily></CodingFamily>
+     <BlogPage></BlogPage>
      <FaqPage></FaqPage>
      <CreateNotification></CreateNotification>
+     <Gamification></Gamification>
      <Technology></Technology>
+     
     
     
 

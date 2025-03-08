@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import {
   Users,
@@ -47,9 +48,10 @@ const Notifications = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6 flex items-center gap-3 text-gray-800">
-        <Bell className="h-7 w-7 text-blue-500 animate-pulse" /> Admin Notification Panel
+    <div className="max-w-4xl mx-auto p-6 bg-gray-800">
+       <NavLink to='/adminlayout' className="text-white text-2xl pb-4 mb-4">Home</NavLink>
+      <h2 className="text-3xl font-bold mb-6 text-center flex items-center gap-3 text-white">
+        <Bell className="h-7 w-7 text-blue-600 animate-pulse" /> Admin Notification Panel
       </h2>
 
       {loading ? (
