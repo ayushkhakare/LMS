@@ -38,12 +38,22 @@ const Navbar = () => {
             </NavLink>
           </>
         ) : (
-          <button
-            onClick={logout}
-            className="bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition duration-300 cursor-pointer"
-          >
-            Logout
-          </button>
+          <>
+            <NavLink
+              to="/userdashboard"
+              className={({ isActive }) =>
+                `transition duration-300 ${isActive ? "text-blue-900 font-semibold" : "hover:text-blue-600"}`
+              }
+            >
+              User Dashboard
+            </NavLink>
+            <button
+              onClick={logout}
+              className="bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition duration-300 cursor-pointer"
+            >
+              Logout
+            </button>
+          </>
         )}
       </div>
     </nav>
